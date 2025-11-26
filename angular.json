@@ -67,7 +67,8 @@
               "browserTarget": "gestione-utenti:build:production"
             },
             "development": {
-              "browserTarget": "gestione-utenti:build:development"
+              "browserTarget": "gestione-utenti:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

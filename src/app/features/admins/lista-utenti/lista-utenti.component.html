@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="header">
+    <h2>Gestione Utenti</h2>
+    <button *ngIf="isAdmin" class="btn btn-primary" (click)="openCreateDialog()">
+      Nuovo Utente
+    </button>
+  </div>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
+      placeholder="Cerca utenti per Nome, Cognome, o CF..."
+      class="search-input">
+    <button class="btn btn-secondary" (click)="clearSearch()">Pulisci</button>
+  </div>
+
+  <div class="table-container" *ngIf="!loading">
+    <table class="users-table">
+      <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Data di Nascita</th>
+        <th>Ruolo</th>
+        <th>Azioni</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let utente of utenti">
+        <td data-label="Nome">{{ utente.nome }}</td>
+        <td data-label="Cognome">{{ utente.cognome }}</td>
+        <td data-label="Data di Nascita">{{ utente.dataNascita | date:'dd/MM/yyyy' }}</td>
+        <td data-label="Ruolo">
+            <span [class]="'badge ' + (utente.ruolo === 'ADMIN' ? 'badge-admin' : 'badge-user')">
+              {{ utente.ruolo }}
+            </span>
+        </td>
+        <td data-label="Azioni" class="actions">
+          <button class="btn btn-info" (click)="viewDetails(utente.id)">Dettagli</button>
+          <button *ngIf="isAdmin" class="btn btn-warning" (click)="openEditDialog(utente)">
+            Modifica
+          </button>
+          <!-- Aggiornato: passo solo l'ID, il nome e cognome vengono recuperati o costruiti nel TS -->
+          <button *ngIf="isAdmin" class="btn btn-danger" (click)="deleteUtente(utente.id, utente.nome, utente.cognome)">
+            Elimina
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Caricamento utenti...
+  </div>
+
+  <div *ngIf="utenti.length === 0 && !loading" class="no-data">
+    <p>Nessun utente trovato</p>
+  </div>
+</div>

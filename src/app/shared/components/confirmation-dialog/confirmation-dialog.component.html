@@ -1,0 +1,24 @@
+<div class="p-4 rounded-lg bg-white shadow-xl max-w-sm mx-auto">
+  <div mat-dialog-title class="flex items-center space-x-3 border-b pb-3 mb-4">
+    <mat-icon [color]="data.color" class="text-3xl">{{ data.icon }}</mat-icon>
+    <h2 class="text-xl font-semibold text-gray-800">{{ data.title }}</h2>
+  </div>
+
+  <div mat-dialog-content class="text-gray-600 mb-6">
+    <p>{{ data.message }}</p>
+  </div>
+
+  <div mat-dialog-actions class="flex justify-end space-x-3 pt-3">
+    <button mat-stroked-button (click)="onCancel()" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition">
+      {{ data.cancelText }}
+    </button>
+    <button
+      mat-raised-button
+      [color]="data.color"
+      (click)="onConfirm()"
+      cdkFocusInitial
+      class="px-4 py-2 rounded-md font-medium shadow-md transition hover:shadow-lg">
+      {{ data.confirmText }}
+    </button>
+  </div>
+</div>

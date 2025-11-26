@@ -1,0 +1,32 @@
+<div class="landing-container">
+  <div class="hero-section">
+    <h1>Benvenuto in Gestione Utenti</h1>
+    <p>Un'applicazione completa per la gestione degli utenti con funzionalità CRUD</p>
+
+    <div class="cta-buttons" *ngIf="!(isAuthenticated$ | async)">
+      <button class="btn btn-primary" routerLink="/register">Registrati</button>
+      <button class="btn btn-secondary" routerLink="/login">Login</button>
+    </div>
+
+    <div class="cta-buttons" *ngIf="isAuthenticated$ | async">
+      <button class="btn btn-primary" routerLink="/utenti">Gestisci Utenti</button>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <div class="feature-card">
+      <h3>📊 Gestione Completa</h3>
+      <p>Operazioni CRUD complete per la gestione degli utenti</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>🔍 Ricerca Avanzata</h3>
+      <p>Ricerca utenti tramite match esatto o ricerca full-text</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>🔐 Sicurezza</h3>
+      <p>Sistema di autenticazione per proteggere i tuoi dati</p>
+    </div>
+  </div>
+</div>

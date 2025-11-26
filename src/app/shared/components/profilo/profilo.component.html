@@ -1,0 +1,43 @@
+<div class="profilo-container">
+  <div class="header">
+    <h2>Il Mio Profilo</h2>
+    <button class="btn btn-secondary" (click)="tornaAllaDashboard()">← Torna alla Dashboard</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Caricamento profilo...
+  </div>
+
+  <div *ngIf="userProfile && !loading" class="profile-card">
+    <div class="profile-header">
+      <h3>Dettagli Personali</h3>
+      <button class="btn btn-warning" (click)="modificaProfilo()">Modifica Profilo</button>
+    </div>
+
+    <div class="profile-details">
+      <div class="detail-item">
+        <label>Nome:</label>
+        <span>{{ userProfile.nome }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Cognome:</label>
+        <span>{{ userProfile.cognome }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Data di Nascita:</label>
+        <span>{{ userProfile.dataNascita | date:'dd/MM/yyyy' }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Ruolo:</label>
+        <span [class]="'badge ' + (userProfile.ruolo === 'ADMIN' ? 'badge-admin' : 'badge-user')" class="bg-black">
+          {{ userProfile.ruolo }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!userProfile && !loading" class="error-message">
+    <p>Impossibile caricare il profilo utente</p>
+    <button class="btn btn-primary" (click)="caricaProfiloUtente()">Riprova</button>
+  </div>
+</div>

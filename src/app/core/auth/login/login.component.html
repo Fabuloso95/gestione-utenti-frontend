@@ -1,77 +1,76 @@
 <div class="login-container">
-  <mat-card class="login-card mat-elevation-z10">
-    <mat-card-header>
-      <mat-card-title class="title">ACCEDI AL SISTEMA</mat-card-title>
+  <mat-card class="login-card">
+    <mat-card-header class="justify-center mb-4">
+      <mat-card-title class="title">Accedi</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-      <!-- Form reattivo -->
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-        <!-- Campo Codice Fiscale -->
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Codice Fiscale</mat-label>
           <input
             matInput
-            type="text"
             formControlName="codiceFiscale"
-            placeholder="Inserisci il tuo codice fiscale"
-            required
-          >
-          <mat-icon matSuffix>badge</mat-icon>
-          <mat-error *ngIf="isFieldInvalid('codiceFiscale')">
-            Il Codice Fiscale è obbligatorio.
+            type="text"
+            placeholder="Inserisci il codice fiscale"
+            [class.error]="isFieldInvalid('codiceFiscale')">
+          <mat-error *ngIf="f.codiceFiscale.hasError('required')">
+            Codice Fiscale obbligatorio
           </mat-error>
         </mat-form-field>
 
-        <!-- Campo Password -->
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Password</mat-label>
           <input
             matInput
-            [type]="hidePassword ? 'password' : 'text'"
             formControlName="password"
+            [type]="hidePassword ? 'password' : 'text'"
             placeholder="Inserisci la password"
-            required
-          >
-          <mat-icon matSuffix (click)="hidePassword = !hidePassword" class="cursor-pointer">
-            {{hidePassword ? 'visibility_off' : 'visibility'}}
-          </mat-icon>
-          <mat-error *ngIf="isFieldInvalid('password')">
-            La Password è obbligatoria.
+            [class.error]="isFieldInvalid('password')">
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword"
+            class="cursor-pointer">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="f.password.hasError('required')">
+            Password obbligatoria
+          </mat-error>
+          <mat-error *ngIf="f.password.hasError('minlength')">
+            La password deve essere di almeno 8 caratteri
           </mat-error>
         </mat-form-field>
 
-        <!-- Messaggio di Errore Globale -->
-        <div *ngIf="errorMessage()" class="error-message mat-error mb-4">
-          {{ errorMessage() }}
+        <div *ngIf="errorMessage" class="error-message mat-error mb-4">
+          {{ errorMessage }}
         </div>
 
-        <!-- Pulsante di Submit -->
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="loginForm.invalid || isLoading()"
-          class="full-width mt-4"
-        >
-          <span *ngIf="!isLoading()">ACCEDI</span>
-          <mat-progress-spinner
-            *ngIf="isLoading()"
-            diameter="20"
-            mode="indeterminate"
-            class="spinner-inline"
-          ></mat-progress-spinner>
-          <span *ngIf="isLoading()" class="ml-2">Accesso in corso...</span>
-        </button>
+        <mat-card-actions class="justify-center p-0">
+          <button
+            mat-raised-button
+            color="primary"
+            class="full-width"
+            type="submit"
+            [disabled]="loginForm.invalid || isLoading">
+            <span *ngIf="!isLoading">ACCEDI</span>
+            <span *ngIf="isLoading" class="spinner-inline">
+              <mat-spinner diameter="20" strokeWidth="2"></mat-spinner>
+            </span>
+            <span *ngIf="isLoading" class="ml-2">Accesso in corso...</span>
+          </button>
+        </mat-card-actions>
       </form>
-
     </mat-card-content>
 
-    <mat-card-actions class="flex justify-center">
-      <button mat-button color="accent" routerLink="/register">
-        Non hai un account? Registrati ora
-      </button>
-    </mat-card-actions>
+    <mat-card-footer class="text-center mt-4 p-3">
+      <p class="text-sm text-gray-600 mb-2">Non hai un account?</p>
+      <a mat-button color="primary" routerLink="/register" class="cursor-pointer">
+        Registrati qui
+      </a>
+    </mat-card-footer>
   </mat-card>
 </div>

@@ -1,0 +1,134 @@
+:host {
+  /* Assicura che il componente occupi tutto lo spazio per la centratura */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* Sfondo coerente con il login */
+  background-color: #f0f2f5;
+  padding: 16px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Contenitore principale (coerente con .login-container) */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  padding: 16px;
+}
+
+/* Stili per la Card principale (coerente con .login-card) */
+.register-card {
+  width: 100%;
+  max-width: 450px; /* Leggermente più larga del login per i campi affiancati */
+  border-radius: 12px !important;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 16px; /* Padding interno */
+  transition: all 0.3s ease;
+}
+
+/* Stili per l'header del Form */
+.mat-card-header {
+  padding-bottom: 16px;
+  justify-content: center;
+}
+
+/* Stili per il titolo (coerente con .title) */
+.title {
+  font-size: 1.75rem; /* leggermente più grande per la registrazione */
+  font-weight: 700;
+  text-align: center;
+  color: #3f51b5; /* Primary color */
+}
+
+/* Stili per i campi form di Material */
+.mat-form-field {
+  width: 100%;
+}
+
+/* Rende l'icona prefissa discreta e allineata */
+.mat-icon[matPrefix] {
+  margin-right: 8px; /* Spazio tra icona e input */
+  opacity: 0.7;
+}
+
+/* Pulsante coerente con il Login */
+.register-button {
+  background-color: #3f51b5 !important;
+  color: white !important;
+  height: 44px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 6px !important;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.register-button:not([disabled]):hover {
+  background-color: #303f9f !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.register-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Messaggio di errore coerente con il Login */
+.error-message {
+  padding: 12px;
+  background-color: #fbe6e6;
+  border: 1px solid #d32f2f;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #d32f2f;
+  text-align: left;
+}
+
+/* Spinner inline per il caricamento */
+.spinner-inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Utility per Layout (coerenti con il Login) */
+.full-width {
+  width: 100%;
+}
+.justify-center {
+  justify-content: center;
+}
+.ml-2 {
+  margin-left: 0.5rem;
+}
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+
+/* Footer border */
+.border-t {
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Media Query per Mobile */
+@media (max-width: 600px) {
+  .register-card {
+    max-width: 100%;
+    margin: 20px 0;
+    box-shadow: none;
+    padding: 10px;
+  }
+}

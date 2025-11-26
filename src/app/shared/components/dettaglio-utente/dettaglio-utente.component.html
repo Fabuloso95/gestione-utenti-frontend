@@ -1,0 +1,50 @@
+<div class="dettaglio-container">
+  <div class="header">
+    <h2>Dettagli Utente</h2>
+    <button class="btn btn-secondary" (click)="tornaIndietro()">← Torna Indietro</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Caricamento...
+  </div>
+
+  <div *ngIf="utente && !loading" class="user-details-card">
+    <div class="card-header">
+      <h3>Informazioni Personalizzate</h3>
+      <div class="actions" *ngIf="puoModificare()">
+        <button class="btn btn-warning" (click)="modificaUtente()">Modifica</button>
+        <button *ngIf="isAdmin" class="btn btn-danger" (click)="eliminaUtente()">Elimina</button>
+      </div>
+    </div>
+
+    <div class="details-grid">
+      <div class="detail-item">
+        <label>ID:</label>
+        <span>{{ utente.id }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Nome:</label>
+        <span>{{ utente.nome }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Cognome:</label>
+        <span>{{ utente.cognome }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Data di Nascita:</label>
+        <span>{{ utente.dataNascita | date:'dd/MM/yyyy' }}</span>
+      </div>
+      <div class="detail-item">
+        <label>Ruolo:</label>
+        <span [class]="'badge ' + (utente.ruolo === 'ADMIN' ? 'badge-admin' : 'badge-user')">
+          {{ utente.ruolo }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="error && !loading" class="error-message">
+    <p>Errore nel caricamento dei dati: {{ error }}</p>
+    <button class="btn btn-primary" (click)="caricaDettagli()">Riprova</button>
+  </div>
+</div>

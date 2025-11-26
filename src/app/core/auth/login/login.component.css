@@ -53,9 +53,49 @@
   cursor: pointer;
 }
 
-mat-card-actions button
+.justify-center
 {
-  font-size: 0.9rem;
+  justify-content: center;
+}
+
+.text-center
+{
+  text-align: center;
+}
+
+.mb-4
+{
+  margin-bottom: 1rem;
+}
+
+.mt-4
+{
+  margin-top: 1rem;
+}
+
+.ml-2
+{
+  margin-left: 0.5rem;
+}
+
+.p-0
+{
+  padding: 0;
+}
+
+.p-3
+{
+  padding: 0.75rem;
+}
+
+.text-sm
+{
+  font-size: 0.875rem;
+}
+
+.text-gray-600
+{
+  color: #718096;
 }
 
 @media (max-width: 600px)

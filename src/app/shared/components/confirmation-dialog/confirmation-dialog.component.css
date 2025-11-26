@@ -1,0 +1,10 @@
+.mat-mdc-dialog-container .mat-mdc-dialog-surface
+{
+  padding: 0 !important;
+  border-radius: 12px !important;
+}
+
+.mat-dialog-title
+{
+  margin: 0;
+}

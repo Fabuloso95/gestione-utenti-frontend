@@ -17,7 +17,6 @@ import {finalize} from "rxjs/operators";
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthService],
   standalone: true,
   imports: [
     CommonModule,
@@ -32,10 +31,11 @@ import {finalize} from "rxjs/operators";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class LoginComponent implements OnDestroy
 {
   isLoading: boolean = false;
-  errorMessage: string | null = null;
+  errorMessage: string = '';
   hidePassword: boolean = true;
   private loginSubscription: Subscription | undefined;
 
@@ -55,10 +55,7 @@ export class LoginComponent implements OnDestroy
   constructor(
     private authService: AuthService,
     private router: Router
-  )
-  {
-    this.router = { navigate: (path: string[]) => console.log('NAVIGAZIONE VERSO:', path[0]) } as any;
-  }
+  ) {}
 
   get f()
   {
@@ -80,7 +77,7 @@ export class LoginComponent implements OnDestroy
     }
 
     this.isLoading = true;
-    this.errorMessage = null;
+    this.errorMessage = '';
 
     const credentials: LoginRequest = this.loginForm.getRawValue();
 
@@ -99,7 +96,7 @@ export class LoginComponent implements OnDestroy
       .subscribe({
         next: () =>
         {
-          (this.router as any).navigate(['/']);
+          this.router.navigate(['/dashboard']);
         },
         error: (error: any) =>
         {

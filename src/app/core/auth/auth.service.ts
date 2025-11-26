@@ -53,7 +53,6 @@ export class AuthService
   register(user: RegistrazioneRequest): Observable<UtenteResponse>
   {
     return this.http.post<UtenteResponse>(`${API_BASE_URL}/register`, user).pipe(
-      tap(() => this.router.navigate(['/login'])),
       catchError((error: HttpErrorResponse) =>
       {
         console.error('Registrazione fallita:', error);

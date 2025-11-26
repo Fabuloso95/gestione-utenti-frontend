@@ -1,0 +1,116 @@
+<div class="register-container">
+  <mat-card class="register-card">
+    <mat-card-header class="justify-center mb-6">
+      <mat-card-title class="title">Crea Account</mat-card-title>
+      <mat-card-subtitle class="text-gray-600 mt-1">
+        Iscriviti per accedere ai servizi
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="p-4 pt-0">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-3">
+
+        <!-- Messaggio di errore generale -->
+        <div *ngIf="errorMessage" class="error-message mb-4" role="alert">
+          <mat-icon class="align-middle mr-2 text-red-500 text-base">error_outline</mat-icon>
+          {{ errorMessage }}
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" required placeholder="Mario">
+            <mat-icon matPrefix>person_outline</mat-icon>
+            <mat-error *ngIf="isFieldInvalid('nome')">
+              Il Nome è obbligatorio.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Cognome</mat-label>
+            <input matInput formControlName="cognome" required placeholder="Rossi">
+            <mat-icon matPrefix>person_outline</mat-icon>
+            <mat-error *ngIf="isFieldInvalid('cognome')">
+              Il Cognome è obbligatorio.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Data di Nascita</mat-label>
+          <input matInput formControlName="dataNascita" type="date" required>
+          <mat-icon matPrefix>calendar_today</mat-icon>
+          <mat-error *ngIf="isFieldInvalid('dataNascita') && f.dataNascita.errors?.['required']">
+            La data è obbligatoria.
+          </mat-error>
+          <mat-error *ngIf="isFieldInvalid('dataNascita') && f.dataNascita.errors?.['minAge']">
+            Devi avere almeno 18 anni.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Codice Fiscale</mat-label>
+          <input matInput formControlName="codiceFiscale" required placeholder="ABCDEF01G23H456I">
+          <mat-icon matPrefix>badge</mat-icon>
+          <mat-error *ngIf="isFieldInvalid('codiceFiscale') && f.codiceFiscale.errors?.['required']">
+            Il Codice Fiscale è obbligatorio.
+          </mat-error>
+          <mat-error *ngIf="isFieldInvalid('codiceFiscale') && f.codiceFiscale.errors?.['pattern']">
+            Formato CF non valido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+          <mat-icon matPrefix>lock</mat-icon>
+
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button" [attr.aria-label]="'Nascondi password'" [attr.aria-pressed]="hidePassword" class="cursor-pointer">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+
+          <mat-error *ngIf="isFieldInvalid('password') && f.password.errors?.['required']">
+            La password è obbligatoria.
+          </mat-error>
+          <mat-error *ngIf="isFieldInvalid('password') && (f.password.errors?.['minlength'] || f.password.errors?.['pattern'])">
+            Min. 8 caratteri: maiuscola, minuscola, numero e simbolo.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Conferma Password</mat-label>
+          <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" required>
+          <mat-icon matPrefix>lock_open</mat-icon>
+
+          <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button" [attr.aria-label]="'Nascondi conferma password'" [attr.aria-pressed]="hideConfirmPassword" class="cursor-pointer">
+            <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+
+          <mat-error *ngIf="isFieldInvalid('confirmPassword') && f.confirmPassword.errors?.['required']">
+            La conferma è obbligatoria.
+          </mat-error>
+          <mat-error *ngIf="f.confirmPassword.hasError('mismatch') && (f.confirmPassword.dirty || f.confirmPassword.touched)">
+            Le password non corrispondono.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-card-actions class="justify-center p-0 mt-4">
+          <button mat-raised-button color="primary" class="full-width register-button" type="submit" [disabled]="registerForm.invalid || isLoading">
+            <span *ngIf="!isLoading">REGISTRATI ORA</span>
+            <span *ngIf="isLoading" class="spinner-inline">
+              <mat-spinner diameter="20" strokeWidth="2"></mat-spinner>
+            </span>
+            <span *ngIf="isLoading" class="ml-2">Inviando i dati...</span>
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+
+    <mat-card-footer class="text-center mt-4 p-3 border-t">
+      <p class="text-sm text-gray-600 mb-2">Hai già un account?</p>
+      <a mat-button color="primary" routerLink="/login" class="cursor-pointer">
+        Accedi qui
+      </a>
+    </mat-card-footer>
+  </mat-card>
+</div>

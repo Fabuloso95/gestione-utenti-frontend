@@ -11,6 +11,7 @@ export interface UtenteResponse
   id: number;
   nome: string;
   cognome: string;
+  codiceFiscale: string;
   dataNascita: string;
   ruolo: Ruolo;
 }

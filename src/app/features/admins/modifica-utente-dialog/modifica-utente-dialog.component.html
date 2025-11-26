@@ -1,0 +1,99 @@
+<h2 mat-dialog-title>
+  {{ data.mode === 'create' ? 'Crea Nuovo Utente' : 'Modifica Utente' }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="utenteForm" class="form">
+    <div class="form-group">
+      <label for="nome">Nome *</label>
+      <input
+        id="nome"
+        type="text"
+        formControlName="nome"
+        class="form-control"
+        [class.error]="isFieldInvalid('nome')">
+      <div class="error-message" *ngIf="isFieldInvalid('nome')">
+        Nome obbligatorio
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cognome">Cognome *</label>
+      <input
+        id="cognome"
+        type="text"
+        formControlName="cognome"
+        class="form-control"
+        [class.error]="isFieldInvalid('cognome')">
+      <div class="error-message" *ngIf="isFieldInvalid('cognome')">
+        Cognome obbligatorio
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="codiceFiscale">Codice Fiscale *</label>
+      <input
+        id="codiceFiscale"
+        type="text"
+        formControlName="codiceFiscale"
+        class="form-control"
+        [class.error]="isFieldInvalid('codiceFiscale')"
+        [readonly]="data.mode === 'edit'">
+      <div class="error-message" *ngIf="isFieldInvalid('codiceFiscale')">
+        Codice Fiscale obbligatorio (16 caratteri)
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="dataNascita">Data di Nascita *</label>
+      <input
+        id="dataNascita"
+        type="date"
+        formControlName="dataNascita"
+        class="form-control"
+        [class.error]="isFieldInvalid('dataNascita')">
+      <div class="error-message" *ngIf="isFieldInvalid('dataNascita')">
+        Data di nascita obbligatoria
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="data.mode === 'create'">
+      <label for="password">Password *</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        class="form-control"
+        [class.error]="isFieldInvalid('password')">
+      <div class="error-message" *ngIf="isFieldInvalid('password')">
+        Password obbligatoria (minimo 6 caratteri)
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="isAdmin && data.mode === 'create'">
+      <label for="ruolo">Ruolo *</label>
+      <select
+        id="ruolo"
+        formControlName="ruolo"
+        class="form-control"
+        [class.error]="isFieldInvalid('ruolo')">
+        <option value="USER">USER</option>
+        <option value="ADMIN">ADMIN</option>
+      </select>
+      <div class="error-message" *ngIf="isFieldInvalid('ruolo')">
+        Ruolo obbligatorio
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button class="btn btn-secondary" (click)="onCancel()">Annulla</button>
+  <button
+    class="btn btn-primary"
+    (click)="onSubmit()"
+    [disabled]="utenteForm.invalid || loading">
+    {{ data.mode === 'create' ? 'Crea' : 'Salva' }}
+    <span *ngIf="loading" class="spinner"></span>
+  </button>
+</mat-dialog-actions>
